@@ -142,12 +142,32 @@ app.post('/storeuser', (request, response) => {
   }
 })
 
-app.post('/playWithoutAccount', (request, response) => {
+/**
+ * @desc Function creates a new sessionID and a new User using the Account class, allowing users to play without an account.
+ * @param {Object} request - Node.js request object
+ * @param {Object} response - Node.js response object
+ */
+app.post('/playAsGuest', (request, response) => {
   let sessionID = request.session.id.toString()
   let newUser = new account.Account(request.body.username)
   playingUsers[sessionID] = {}
   playingUsers[sessionID].user = newUser
   response.send(newUser.toJSON())
+})
+
+app.post('/play', (request, response) => {
+  let sessionID = request.session.id.toString()
+  response.send(playingUsers[sessionID].user.toJSON())
+})
+
+/**
+ * @desc Function to start the game
+ * @param {Object} request - Node.js request ob ject
+ * @param {Object} response - Node.js response object
+ */
+app.post('/play', (request, response) => {
+  let sessionID = request.session.id.toString()
+  response.send(playingUsers[sessionID].user.toJSON())
 })
 
 /**
@@ -272,6 +292,8 @@ app.post('/validateusername', (request, response) => {
     } else {
       response.sendStatus(406)
     }
+  }).catch(error => {
+    console.log(error)
   })
 })
 
@@ -303,6 +325,10 @@ app.post('/register', (request, response) => {
         response.send(finalResult)
       })
     } else {
+      response.sendStatus(406)
+    }
+  }).catch(error => {
+    if (error.message === 'Bad Username') {
       response.sendStatus(406)
     }
   })
