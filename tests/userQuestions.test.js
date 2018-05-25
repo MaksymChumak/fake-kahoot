@@ -70,7 +70,22 @@ it('should ', () => {
   })
 })
 
-test.skip('Test if getRandomQuestions() works', async () => {
+test('Test if getRandomQuestions() works', async () => {
   expect.assertions(1)
   await expect(userQuestions.getRandomQuestions()).resolves.toBeTruthy()
+})
+
+test.skip('Test createCustomQuiz()', async () => {
+  let accID = '12'
+  let qName = 'qweqwe'
+  let date = Date.now().toString()
+  let qList = {
+    'question': 'Question?',
+    'option1': 'op1',
+    'option2': 'op2',
+    'option3': 'op3',
+    'option4': 'op4',
+    'answers': 2
+  }
+  await expect(userQuestions.createCustomQuiz(accID, qName, date, qList)).resolves.toBeTruthy()
 })
