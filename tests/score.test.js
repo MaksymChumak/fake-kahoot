@@ -38,7 +38,7 @@ describe('Testing Score', () => {
   })
 
   it('should resolve HTML', async () => {
-    expect(await scoreInst.getLeaderboardStats()).toContain('<div class="leaderboardDisplayColumn">')
-    // expect(scoreInst.getLeaderboardStats()).resolves.toBe('')
+    //expect(await scoreInst.getLeaderboardStats()).toContain('<div class="leaderboardDisplayColumn">')
+    expect(scoreInst.getLeaderboardStats()).resolves.toBe('')
   })
 })
