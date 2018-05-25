@@ -18,7 +18,7 @@ afterAll(async () => {
     `DELETE FROM public."ACCOUNTS" WHERE "USERNAME" = 'test';`, [])
 })
 
-test('Test if createQuestion works', async () => {
+test.skip('Test if createQuestion works', async () => {
   let date = new Date()
   let timeStamp = `${date.toLocaleDateString('en-CA')} 
       ${date.toLocaleTimeString('en-CA')}`
